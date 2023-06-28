@@ -6,8 +6,9 @@ jobs:
   run_tests:
     runs-on: ubuntu-latest
 
-    env_file:
-      - ./.env
+    environment: tests
+    env:
+      MAIN_URL: ${{ vars.MAIN_URL }}
 
     steps:
       - uses: actions/checkout@v3
