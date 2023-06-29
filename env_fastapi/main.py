@@ -1,15 +1,12 @@
+import uvicorn
 from fastapi import FastAPI
-from pydantic import BaseModel
-from env_fastapi.settings import settings
+
+from env_fastapi.controllers import main as UserRouter
 
 
 app = FastAPI()
+app.include_router(UserRouter.router, prefix="/user")
 
 
-class Status(BaseModel):
-    status: str = "ok"
-
-
-@app.get(settings.main_url)
-async def status():
-    return Status()
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
