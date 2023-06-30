@@ -1,3 +1,4 @@
+from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from env_fastapi.dto.user import UserDto
@@ -17,7 +18,8 @@ async def create_user(data: UserDto, session: AsyncSession):
 
 
 async def get_user(id: int, session: AsyncSession):
-    return session.query(User).filter(User.id==id).first()
+    result = await session.execute(select(User).where(User.id == id))
+    return result.scalar()
 
 
 async def update_user(data: UserDto, session: AsyncSession, id: int):
@@ -26,4 +28,10 @@ async def update_user(data: UserDto, session: AsyncSession, id: int):
     session.add(user)
     await session.commit()
     await session.refresh(user)
+    return user
+
+
+async def delete_user(id: int, session: AsyncSession):
+    user = await session.execute(delete(User).where(User.id==id))
+    await session.commit()
     return user

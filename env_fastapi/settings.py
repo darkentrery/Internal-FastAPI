@@ -26,28 +26,13 @@ class Settings(BaseSettings):
         return create_async_engine(self.SQLALCHEMY_DATABASE_URL, echo=True)
 
     @property
-    def Base(self):
-        return declarative_base()
-
-    @property
     def async_session(self):
-        return sessionmaker(bind=self.engine, class_=AsyncSession, expire_on_commit=False, autoflush=False)
+        return sessionmaker(bind=self.engine, class_=AsyncSession, expire_on_commit=False, autoflush=True)
 
 
 dotenv_path = os.path.join(os.path.dirname(__file__), "../.env")
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
-
-
-# POSTGRES_USER = environ.get("POSTGRES_USER", "postgres")
-# POSTGRES_PASSWORD = environ.get("POSTGRES_PASSWORD", "postgres")
-# POSTGRES_NAME = environ.get("POSTGRES_NAME", "postgres")
-# POSTGRES_HOST = environ.get("POSTGRES_HOST", "localhost")
-
-# SQLALCHEMY_DATABASE_URL = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5437/{POSTGRES_NAME}"
-# engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=True)
-# Base = declarative_base()
-# async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
 settings = Settings()

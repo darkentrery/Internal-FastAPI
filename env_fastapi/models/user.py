@@ -1,8 +1,8 @@
 from sqlalchemy import Boolean, Integer, String, Column
-from env_fastapi.settings import settings
+from env_fastapi.settings import Base
 
 
-class User(settings.Base):
+class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)

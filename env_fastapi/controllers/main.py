@@ -20,19 +20,19 @@ class Status(BaseModel):
 
 @router.post(settings.main_url, tags=["user"])
 async def create(data: UserDto, session: AsyncSession = Depends(get_session)):
-    return UserService.create_user(data, session)
+    return await UserService.create_user(data, session)
 
 
 @router.get("/{id}", tags=["user"])
 async def get(id: int, session: AsyncSession = Depends(get_session)):
-    return UserService.get_user(id, session)
+    return await UserService.get_user(id, session)
 
 
 @router.put("/{id}", tags=["user"])
 async def put(id: int, data: UserDto, session: AsyncSession = Depends(get_session)):
-    return UserService.update_user(data, session, id)
+    return await UserService.update_user(data, session, id)
 
 
-# @router.delete("/{id}", tags=["user"])
-# async def delete(id: int, session: AsyncSession = Depends(get_session)):
-#     return UserService.(id, session)
+@router.delete("/{id}", tags=["user"])
+async def delete(id: int, session: AsyncSession = Depends(get_session)):
+    return await UserService.delete_user(id, session)
