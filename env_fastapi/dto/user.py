@@ -9,4 +9,3 @@ class UserGetDto(schemas.BaseUser[int]):
 
 class UserCreateDTO(schemas.BaseUserCreate):
     name: str
-    created: str
