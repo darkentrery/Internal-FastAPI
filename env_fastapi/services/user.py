@@ -18,7 +18,7 @@ async def create_user(data: UserDto, session: AsyncSession):
 
 
 async def get_user(id: int, session: AsyncSession):
-    result = await session.execute(select(User).where(User.id == id))
+    result = await session.execute(select(User).where((User.id == id) & (User.name == "Mishaa")))
     return result.scalar()
 
 
